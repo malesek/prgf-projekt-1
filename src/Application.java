@@ -10,8 +10,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.Console;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -19,12 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
-/**
- * trida pro kresleni na platno: zobrazeni pixelu
- *
- * @author PGRF FIM UHK
- * @version 2020
- */
 
 public class Application {
 
@@ -47,6 +39,9 @@ public class Application {
     //pokud je 3 tak kreslím polygon -- zapnu stiskem P
     private int drawMode;
 
+    /**
+     * Inicializační metoda využívaná i pro uvedení všech proměnných do původního stavu
+     */
     public void initializer(){
         filledLineRasterizer = new FilledLineRasterizer(raster);
         dottedLineRasterizer = new DottedLineRasterizer(raster);
@@ -129,11 +124,10 @@ public class Application {
                         }
                 }
                 if(e.getButton() == MouseEvent.BUTTON3){
-                    System.out.print(point1 + " ");
-                    System.out.println(point2);
                     if(point1 != null && point2 != null){
                         Point tmp;
                         if(drawMode != 3){
+                            //podmínka pro najití nejbližšího bodu v úsečce
                             if(Math.abs(point1.x - e.getX()) > Math.abs(point2.x - e.getX()) || Math.abs(point1.y - e.getY()) > Math.abs(point2.y - e.getY())){
                                 point2 = new Point(e.getX(), e.getY());
                             }
@@ -147,11 +141,7 @@ public class Application {
                         }
                         else{
                             point2 = findClosestPoint(polygon.getPoints(), e.getX(), e.getY());
-                            System.out.println(polygon.getPoints().size());
-                            System.out.println(index);
                             polygon.removePoint(index);
-
-                            //index -=1;
                         }
                     }
                 }
@@ -261,7 +251,7 @@ public class Application {
     }
 
     /**
-     * Clears raster and all variables (except drawMode to stay in desired drawing mode)
+     * Vyčístí raster a všechny proměnné (kromě drawMode abysme zůstali v kreslícím módu, ve kterém jsme byli)
      */
     public void fullClear(){
         clear();
@@ -270,7 +260,7 @@ public class Application {
     }
 
     /**
-     * Clears only raster
+     * Vymaže pouze raster
      */
     public void clear(){
         raster.clear();

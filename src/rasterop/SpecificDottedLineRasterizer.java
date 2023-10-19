@@ -10,11 +10,11 @@ public class SpecificDottedLineRasterizer extends LineRasterizer {
     }
 
     /**
-     * DDA algorithm used to draw only horizontal, vertical or diagonal lines
-     * @param x1 x of first point; values from 0 to Raster width
-     * @param y1 y of first point; values from 0 to Raster height
-     * @param x2 x of second point; values from 0 to Raster width
-     * @param y2 y of second point; values from 0 to Raster height
+     * DDA algoritmus využítý pro vykreslení horizontální, vertikální nebo diagonální tečkované čáry
+     * @param x1 x prvního bodu; hodnoty od 0 do šířky Rasteru
+     * @param y1 y prvního bodu; hodnoty od 0 do výšky Rasteru
+     * @param x2 x druhého bodu; hodnoty od 0 do šířky Rasteru
+     * @param y2 y prvního bodu; hodnoty od 0 do výšky Rasteru
      */
     public void drawLine(double x1, double y1, double x2, double y2) {
         //výpočet směrnice přímky

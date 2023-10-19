@@ -17,14 +17,7 @@ public class Polygon {
     }
 
     /**
-     * Method for getting point at exact index in ArrayList
-     * @param index
-     * @return Point
-     */
-    public Point getPoint(int index) { return points.get(index);}
-
-    /**
-     * Adds desired point at the end of ArrayList
+     * Přídá námi zvolený bod na konec ArrayListu
      * @param point
      */
     public void addPoint(Point point) {
@@ -32,7 +25,7 @@ public class Polygon {
     }
 
     /**
-     * Adds desired point at chosen index of ArrayList
+     * Přídá námi zvolený bod na námi zvolený index v ArrayListu
      * @param index
      * @param point
      */
@@ -40,6 +33,10 @@ public class Polygon {
         this.points.add(index, point);
     }
 
+    /**
+     * Odebere bod na námi zvoleném indexu
+     * @param index
+     */
     public void removePoint(int index){
         this.points.remove(index);
     }

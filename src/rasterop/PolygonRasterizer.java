@@ -8,6 +8,10 @@ public class PolygonRasterizer extends FilledLineRasterizer{
         super(raster);
     }
 
+    /**
+     * Metoda pro vykreslení/překreslení polygonu
+     * @param polygon
+     */
     public void drawPolygon(Polygon polygon) {
         for (int i = 1; i < polygon.getPoints().size(); i++) {
             rasterize(polygon.getPoints().get(i), polygon.getPoints().get(i-1), 0xffff00);
