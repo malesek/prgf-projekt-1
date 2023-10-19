@@ -31,4 +31,17 @@ public class Polygon {
         this.points.add(point);
     }
 
+    /**
+     * Adds desired point at chosen index of ArrayList
+     * @param index
+     * @param point
+     */
+    public void addPointAtIndex(int index, Point point) {
+        this.points.add(index, point);
+    }
+
+    public void removePoint(int index){
+        this.points.remove(index);
+    }
+
 }
