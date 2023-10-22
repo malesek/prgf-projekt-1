@@ -33,6 +33,7 @@ public class Application {
     private Point point2;
     private Polygon polygon;
     private int index;
+    private boolean deletePoint;
 
     //pokud je 1 tak kreslím úsečku tažením (defaultní hodnota) -- zapnu stiskem X
     //pokud je 2 tak kreslím vodorovné, svislé nebo úhlopříčné úsečky -- zapnu stiskem SHIFT
@@ -52,6 +53,7 @@ public class Application {
         point1 = null;
         point2 = null;
         index = -1;
+        deletePoint = false;
     }
     public Application(int width, int height) {
         //Inicializace okna
@@ -123,6 +125,14 @@ public class Application {
                             polygon.addPoint(new Point(e.getX(), e.getY()));
                         }
                 }
+                if(e.getButton() == MouseEvent.BUTTON2){
+                    if(drawMode == 3){
+                        point2 = findClosestPoint(polygon.getPoints(), e.getX(), e.getY());
+                        polygon.removePoint(index);
+                        deletePoint = true;
+                        draw();
+                    }
+                }
                 if(e.getButton() == MouseEvent.BUTTON3){
                     if(point1 != null && point2 != null){
                         Point tmp;
@@ -150,10 +160,13 @@ public class Application {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                if(point1 != null || polygon.getPoints().size() != 0){
-                    draw();
-                    panel.repaint();
+                if(!deletePoint){
+                    if(point1 != null || polygon.getPoints().size() != 0){
+                        draw();
+                        panel.repaint();
+                    }
                 }
+                else deletePoint = false;
             }
         });
         panel.addMouseMotionListener(new MouseAdapter() {
@@ -164,6 +177,11 @@ public class Application {
                         drawDrag();
                         panel.repaint();
                     }
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                super.mouseMoved(e);
             }
         });
 
@@ -205,12 +223,13 @@ public class Application {
         else if (drawMode == 2) {
             specificFilledLineRasterizer.rasterize(point1.x, point1.y, point2.x, point2.y, 0xffff00);
         } else{
-            if(index == -1){
+            if(index == -1 && !deletePoint){
                 polygon.addPoint(new Point(point2.x, point2.y));
                 polygonRasterizer.drawPolygon(polygon);
-            }
-            else {
-                //polygon.addPoint(new Point(point2.x, point2.y));
+            } else if (deletePoint) {
+                polygonRasterizer.drawPolygon(polygon);
+
+            } else {
                 polygon.addPointAtIndex(index, new Point(point2.x, point2.y));
                 polygonRasterizer.drawPolygon(polygon);
                 index = -1;
